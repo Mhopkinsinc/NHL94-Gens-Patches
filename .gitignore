@@ -1,0 +1,13 @@
+# Ignore Emulator files in all folders
+**/Gens.cfg
+**/*.dat
+**/*.srm
+**/language.dat
+
+# Ignore Output files in all folders
+**/output/*
+!**/output/.gitkeep
+
+# Ignore ROM files in all folders
+**/rom/**
+!**/rom/.gitkeep
