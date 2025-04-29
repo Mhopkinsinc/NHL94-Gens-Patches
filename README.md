@@ -16,7 +16,7 @@ The `FakeShot` folder contains a patch that introduces a fake shot feature into 
 ### FakeShot_Menu
 The `FakeShot_Menu` folder contains a patch that adds a menu option for enabling or disabling the fake shot feature.
 
-![image](https://github.com/user-attachments/assets/9dc0556c-3b05-42c4-a0fc-614fdbf16779)
+![image](https://github.com/user-attachments/assets/9dc0556c-3b05-42c4-a0fc-614fdbf16779) ![FakeShotPatch](https://github.com/user-attachments/assets/72c24d59-651b-4c38-9feb-aebfa446f3fc)
 
 ### Fighting_Menu
 The `Fighting_Menu` folder contains a patch that adds a menu option for enabling or disabling fighting in the game.
