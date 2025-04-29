@@ -12,9 +12,7 @@ SubMenuItems:
     dc.w    userrecords-.submenus       ;user Records menu items pointer    
     dc.w    penalties-.submenus         ;Penalties menu items pointer       
     dc.w    linechanges-.submenus       ;line changes menu items pointer    
-    dc.w    fighting-.submenus          ;Fighting Menu items pointer
-    dc.w    weightbug-.submenus         ;Weightbug Menu items pointer
-    dc.w    fakeshot-.submenus          ;fakeshot Menu items pointer    
+    dc.w    fighting-.submenus          ;Fighting Menu items pointer     
 playmode
     SUBMENU	'Regular Season      '
     SUBMENU	'Continue Playoffs   '
@@ -67,11 +65,5 @@ linechanges
     SUBMENU	'Off                 '
     SUBMENU	'Auto                '
 fighting    
-    SUBMENU	'Off                 '
-    SUBMENU	'On                  '
-weightbug
-    SUBMENU	'On, Classic Mode    '
-    SUBMENU	'Off, Chaos Patch    '
-fakeshot
     SUBMENU	'Off                 '
     SUBMENU	'On - Coming Soon    '

@@ -11,3 +11,6 @@
 # Ignore ROM files in all folders
 **/rom/**
 !**/rom/.gitkeep
+
+# Ignore Multi_Menu_Example_With_Fighting
+Multi_Menu_Example_With_Fighting/
