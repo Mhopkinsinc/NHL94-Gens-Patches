@@ -9,5 +9,6 @@
     └── nhl94_patched.bin     # Patched ROM file if the build was successful without errors.
 	
 ## Notes
-1. Patch.asm contains the code that will get patched into the existing NHL94.bin file.
-2. The new code gets inserted in the ROM at address $0FFB10. If you have a custom ROM and want to change this location, change the NewCodeAddr value in the patch.asm file.
+1.  Patch.asm contains the code that will get patched into the existing NHL94.bin file.
+2.  The new code gets inserted in the ROM at address $0FFB10. 
+    If you have a custom ROM and want to change this location, change the NewCodeAddr value in the patch.asm file.

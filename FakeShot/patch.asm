@@ -24,8 +24,8 @@ NewCodeAddress			equ ($0FFB10)					; Address in ROM where the new code will be a
 	include	scripts\utilities.asm
 	
 ; New Code That gets added to the ROM
-	org NewCodeAddress								; <-- Location in ROM to place new Menu Items + SubMenu Items + New Code				
-		include scripts\fakeshot\fakeshot.asm		; <-- Code to add Fake Shot on or off in game		
+	org NewCodeAddress									; <-- Location in ROM to place new Menu Items + SubMenu Items + New Code				
+		include scripts\fakeshot\fakeshot.asm			; <-- Code to add Fake Shot on or off in game		
 		
 ; Hijack Code needs to be after the new code so it doesn't mess up assembler org values		
 		include scripts\fakeshot\fakeshothijack.asm		; <-- Code to Hijack for Fake Shot
