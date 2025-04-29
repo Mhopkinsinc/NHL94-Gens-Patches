@@ -27,9 +27,6 @@ The `99MinOT_Menu` folder contains a patch that adds `5 Minutes, 99 Min OT` opti
 
 ![image](https://github.com/user-attachments/assets/88b50e72-5406-4686-b49d-2245538c3166)
 
-![image](https://github.com/user-attachments/assets/ff578378-c3ca-4cd1-ab77-87c2667ade02)
-
-
 ### FakeShot
 The `FakeShot` folder contains a patch that introduces a fake shot feature into the game, adding a new layer of gameplay strategy.
 
