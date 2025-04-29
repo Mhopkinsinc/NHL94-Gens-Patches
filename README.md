@@ -36,3 +36,6 @@ The `WeightBug_Menu` folder contains a menu option that allows you to either lea
 
 ![weightbug](https://github.com/user-attachments/assets/c6a12bee-7f7e-4dbe-939b-8ae0faec7c24)
 
+## Notes
+All the source code is included in each folder. If you want to modify these, each folder is setup as a workspace and can be edited using VSCode by opening the .workspace file.
+
