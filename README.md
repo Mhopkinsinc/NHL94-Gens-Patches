@@ -25,6 +25,8 @@ This repository contains modifiable patches for NHL '94, with each folder repres
 ### 99MinOT_Menu
 The `99MinOT_Menu` folder contains a patch that adds `5 Minutes, 99 Min OT` option to the Period Length Menu. This may help reduce the need for a playoff rom depending on the league.
 
+![image](https://github.com/user-attachments/assets/cd568bf3-c4fe-4f19-ab85-4c151b788011)
+
 ### FakeShot
 The `FakeShot` folder contains a patch that introduces a fake shot feature into the game, adding a new layer of gameplay strategy.
 
