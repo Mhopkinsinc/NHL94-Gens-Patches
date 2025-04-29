@@ -153,10 +153,12 @@ Assemble `patch.asm` using the provided M68k assembler.
 Build the ROM:
 - Run the build.bat file to build the rom.
 
+```
     output/
     ├── Build.log             # Log file containing any errors during compilation.
     ├── nhl94_patched.bin     # Patched ROM file if the build was successful without errors.
     └── nhl94_patched.lst     # Listing file used for debug purposes.
+```
 
 VSCode Task Runner:
 - Run the Build NHL 94 Task to build the rom (Same as build.bat).
