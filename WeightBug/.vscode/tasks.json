@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [        
+        {
+            "label": "Build NHL 94",
+            "type": "process",
+            "command": "cmd.exe",
+            "args": [
+                "/c",
+                "${workspaceFolder}\\assembler\\Assembler.exe",
+                "/p",
+                "/m",
+                "/g",
+                "/o d-",
+                "/o s-",
+                "/o r+",
+                "/o l+",
+                "/o l.",
+                "/o ow+",
+                "/o op-",
+                "/o os+",
+                "/o oz+",
+                "/o omq-",
+                "/o oaq+",
+                "/o osq+",
+                "${workspaceFolder}\\patch.asm,${workspaceFolder}\\output\\nhl94_patched.bin,,${workspaceFolder}\\output\\nhl94_patched.lst",
+                ">",
+                "${workspaceFolder}\\output\\Build.log",
+                "2>&1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build & Launch Gens Emulator",
+            "type": "process",
+            "command": "C:\\_Personal\\NHL94Sandbox\\GENS\\r57shell Mod\\gens.exe",
+            "args": [
+                "${workspaceFolder}\\output\\nhl94_patched.bin"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "dependsOn": "Build NHL 94",
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "Launch Gens Emulator - Dont Build",
+            "type": "process",
+            "command": "C:\\_Personal\\NHL94Sandbox\\GENS\\r57shell Mod\\gens.exe",
+            "args": [
+                "${workspaceFolder}\\output\\nhl94_patched.bin"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],            
+            "dependsOrder": "sequence"
+        },
+    ]
+}
