@@ -68,10 +68,10 @@ linechanges
     SUBMENU	'Auto                '
 fighting    
     SUBMENU	'Off                 '
-    SUBMENU	'On                  '
+    SUBMENU	'On, Coming Soon     '
 weightbug
     SUBMENU	'On, Classic Mode    '
     SUBMENU	'Off, Chaos Patch    '
 fakeshot
     SUBMENU	'Off                 '
-    SUBMENU	'On - Coming Soon    '
+    SUBMENU	'On                  '

@@ -24,8 +24,8 @@ NewCodeAddress			equ ($0FFB10)					; Address in ROM where the new code will be a
 	include	scripts\utilities.asm
 	
 ; New Code That gets added to the ROM
-	org NewCodeAddress									; <-- Location in ROM to place new Menu Items + SubMenu Items + New Code				
-		include scripts\weightbug\weightbug.asm			; <-- Code to add Fake Shot on or off in game		
+	org NewCodeAddress									; <-- Location in ROM to place New Code				
+		include scripts\weightbug\weightbug.asm			; <-- Code to remove weight bug
 		
-; Hijack Code needs to be after the new code so it doesn't mess up assembler org values		
-		include scripts\weightbug\weightbughijack.asm		; <-- Code to Hijack for Fake Shot
+; Hijack Code needs to be after the new code so it doesn't mess up assembler org values
+	;No Hijack code needed for this patch.	
