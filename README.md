@@ -19,7 +19,7 @@ The `FakeShot_Menu` folder contains a patch that adds a menu option for enabling
 ![image](https://github.com/user-attachments/assets/9dc0556c-3b05-42c4-a0fc-614fdbf16779) ![FakeShotPatch](https://github.com/user-attachments/assets/72c24d59-651b-4c38-9feb-aebfa446f3fc)
 
 ### Fighting_Menu
-The `Fighting_Menu` folder contains a patch that adds a menu option for enabling or disabling fighting in the game.
+The `Fighting_Menu` folder contains a patch that adds a menu option for enabling or disabling fighting in the game when it becomes available.
 
 ![Fighting](https://github.com/user-attachments/assets/2e6e0e32-da79-4403-a3bb-de710b51e8e9)
 
