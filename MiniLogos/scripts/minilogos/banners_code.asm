@@ -35,6 +35,10 @@ sub_16D18	equ $00016D18		; Original banner loading routine
 LogoTileBase	equ $07F0		; VRAM location for standalone logos
 null			equ $30A		; Null pointer for dobitmap
 
+;-- ROM Addresses (Score Positions) --
+HomeScorePosX	equ $012D1F		; Home score X position in ROM
+VisScorePosX	equ $012C9F		; Visitor score X position in ROM
+
 ;-- Banner Mode Tile References --
 ; These reference tiles within the loaded TeamBannersMap in VRAM
 HomeLogo_Banner		equ $A4E7	; Home team mini logo tiles (palette + base)
@@ -82,7 +86,9 @@ DoSmallLogo_Banner:
 ; Displays home team mini logo and score on scoreboard
 ;------------------------------------------------------------------------------
 HomeScoreWithLogo_Banner:
-	move.w	#28,(printx).w
+	move.b	(HomeScorePosX).l,d0	; Read home score X from ROM
+	ext.w	d0
+	move.w	d0,(printx).w
 	move.w	#24,(printy).w
 	
 	move.w	#HomeLogo_Banner,d3
@@ -96,7 +102,9 @@ HomeScoreWithLogo_Banner:
 ; Displays visitor team mini logo and score on scoreboard
 ;------------------------------------------------------------------------------
 VisitorScoreWithLogo_Banner:
-	move.w	#24,(printx).w
+	move.b	(VisScorePosX).l,d0	; Read visitor score X from ROM
+	ext.w	d0
+	move.w	d0,(printx).w
 	move.w	#24,(printy).w
 	
 	move.w	#VisitorLogo_Banner,d3
@@ -275,7 +283,9 @@ DoSmallLogo_Standalone:
 ; HomeScoreWithLogo_Standalone
 ;------------------------------------------------------------------------------
 HomeScoreWithLogo_Standalone:
-	move.w	#28,(printx).w
+	move.b	(HomeScorePosX).l,d0	; Read home score X from ROM
+	ext.w	d0
+	move.w	d0,(printx).w
 	move.w	#24,(printy).w
 	
 	move.w	#LogoTileBase,d3
@@ -289,7 +299,9 @@ HomeScoreWithLogo_Standalone:
 ; VisitorScoreWithLogo_Standalone
 ;------------------------------------------------------------------------------
 VisitorScoreWithLogo_Standalone:
-	move.w	#24,(printx).w
+	move.b	(VisScorePosX).l,d0	; Read visitor score X from ROM
+	ext.w	d0
+	move.w	d0,(printx).w
 	move.w	#24,(printy).w
 	
 	move.w	#LogoTileBase,d3
