@@ -18,8 +18,12 @@
 ; Format: JIM file (palette + tilemap + tile data)
 ;------------------------------------------------------------------------------
 TeamBannersMap:
-	incbin	scripts\minilogos\TeamBlocks.jim_28teams_banners_94_tilesize_clean_base.jim
-
+	if Use32Teams
+		incbin	scripts\minilogos\TeamBlocks.jim_32teams_banners_94_tilesize_clean_base.jim
+	else
+		incbin	scripts\minilogos\TeamBlocks.jim_28teams_banners_94_tilesize_clean_base.jim
+	endif
+	
 	endif	; UseBannerMode
 
 
@@ -36,6 +40,10 @@ TeamBannersMap:
 ; Format: JIM file (palette + tilemap + tile data)
 ;------------------------------------------------------------------------------
 MiniLogosMap:
-	incbin	scripts\minilogos\TeamBlocks.jim_28teams_LogoOnly.jim
+	if Use32Teams
+		incbin	scripts\minilogos\TeamBlocks.jim_32teams_LogoOnly.jim
+	else
+		incbin	scripts\minilogos\TeamBlocks.jim_28teams_LogoOnly.jim
+	endif
 
 	endif	; UseStandaloneMode
