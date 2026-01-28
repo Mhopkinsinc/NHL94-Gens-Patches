@@ -22,6 +22,8 @@ sflags2		equ $FFFFC2EE		; Game state flags
 disflags	equ $FFFFC302		; Display flags
 potree		equ $FFFFCEF4		; Playoff tree team data (was wrong!)
 potreeteam	equ $FFFFCEEE		; Player's team position in playoff tree
+Vpos		equ	$FFFFBD18
+Hpos		equ	$FFFFBD1C
 
 ;-- ROM Addresses (Subroutines) --
 DoDMA		equ $000113E4		; DMA transfer routine
@@ -39,96 +41,12 @@ null			equ $30A		; Null pointer for dobitmap
 HomeScorePosX	equ $012D1F		; Home score X position in ROM
 VisScorePosX	equ $012C9F		; Visitor score X position in ROM
 
-;-- Banner Mode Tile References --
-; These reference tiles within the loaded TeamBannersMap in VRAM
-HomeLogo_Banner		equ $A4E7	; Home team mini logo tiles (palette + base)
-VisitorLogo_Banner	equ $A4FD	; Visitor team mini logo tiles
-
-
 ;==============================================================================
 ; BANNER MODE - MINI LOGO DISPLAY ROUTINES
 ;==============================================================================
-; These routines display the 2x2 mini logos extracted from the banner tiles.
-; Used for: Scoreboard display, Power Play indicator
+; DEPRECATED: We now use the Universal (Standalone) routines for mini logos.
 ;==============================================================================
 
-	if UseBannerMode
-
-;------------------------------------------------------------------------------
-; DoSmallLogo_Banner
-; Draws a 2x2 tile mini logo at current print position
-; Entry: d3 = base tile number (with palette bits)
-;------------------------------------------------------------------------------
-DoSmallLogo_Banner:
-	movem.l	d0-d3/a0,-(a7)
-	
-	jsr	xyVmMap
-	
-	move.w	d3,(a0)			; Top-left tile
-	addq.w	#1,d3
-	move.w	d3,(a0)			; Top-right tile
-	
-	addq.w	#1,printy
-	jsr	xyVmMap
-	
-	add.w	#10,d3			; Skip to bottom row (11 tiles wide - 1)
-	move.w	d3,(a0)			; Bottom-left tile
-	addq.w	#1,d3
-	move.w	d3,(a0)			; Bottom-right tile
-	
-	addq.w	#1,printy
-	
-	movem.l	(a7)+,d0-d3/a0
-	rts
-
-;------------------------------------------------------------------------------
-; HomeScoreWithLogo_Banner
-; Displays home team mini logo and score on scoreboard
-;------------------------------------------------------------------------------
-HomeScoreWithLogo_Banner:
-	move.b	(HomeScorePosX).l,d0	; Read home score X from ROM
-	ext.w	d0
-	move.w	d0,(printx).w
-	move.w	#24,(printy).w
-	
-	move.w	#HomeLogo_Banner,d3
-	bsr.w	DoSmallLogo_Banner
-	movea.w	#$C6CE,a2
-	bsr.w	PrintScoreOnly
-	rts
-
-;------------------------------------------------------------------------------
-; VisitorScoreWithLogo_Banner
-; Displays visitor team mini logo and score on scoreboard
-;------------------------------------------------------------------------------
-VisitorScoreWithLogo_Banner:
-	move.b	(VisScorePosX).l,d0	; Read visitor score X from ROM
-	ext.w	d0
-	move.w	d0,(printx).w
-	move.w	#24,(printy).w
-	
-	move.w	#VisitorLogo_Banner,d3
-	bsr.w	DoSmallLogo_Banner
-	adda.w	#$364,a2
-	bsr.w	PrintScoreOnly
-	rts
-
-;------------------------------------------------------------------------------
-; PowerPlayLogo_Wrapper_Banner
-; Displays mini logo for team on power play
-;------------------------------------------------------------------------------
-PowerPlayLogo_Wrapper_Banner:
-	move.w	#1,(printx).w
-	move.w	#25,(printy).w
-	
-	move.w	#HomeLogo_Banner,d3
-	btst	#6,(sflags2).w
-	beq.s	.draw
-	move.w	#VisitorLogo_Banner,d3
-.draw:
-	bra.w	DoSmallLogo_Banner
-
-	endif	; UseBannerMode
 
 
 ;==============================================================================
@@ -203,17 +121,22 @@ TeamSelectBannerPalette:
 ; Use this if you want original banners but custom mini logos.
 ;==============================================================================
 
-	if UseStandaloneMode
+;==============================================================================
+; UNIVERSAL MINI LOGO ROUTINES
+;==============================================================================
+; These routines use the standalone method (separate VRAM tiles) for logos.
+; Used by both Banner Mode and Standalone Mode.
+;==============================================================================
 
 ;------------------------------------------------------------------------------
-; SetSLogos_Standalone
+; SetSLogos_Refactored
 ; Loads mini logo tiles to end of VRAM during game init
 ;------------------------------------------------------------------------------
-SetSLogos_Standalone:
+SetSLogos_Refactored:
 	jsr	sub_16D18		; Call original banner loading routine
 	move.w	d4,(ExtraChars).w	; Restore instruction we overwrote
 
-ReloadLogos_Standalone:
+ReloadLogos_Refactored:
 	; Load mini logos to end of VRAM
 	move.w	#LogoTileBase,d2
 	move.w	d2,SmallLogoscset
@@ -254,11 +177,11 @@ ReloadLogos_Standalone:
 	rts
 
 ;------------------------------------------------------------------------------
-; DoSmallLogo_Standalone
+; DoSmallLogo_Refactored
 ; Draws 2x2 mini logo using DMA'd tiles
 ; Entry: d3 = base tile number (with palette bits)
 ;------------------------------------------------------------------------------
-DoSmallLogo_Standalone:
+DoSmallLogo_Refactored:
 	movem.l	d0-d3/a0,-(a7)
 	
 	jsr	xyVmMap
@@ -281,9 +204,9 @@ DoSmallLogo_Standalone:
 	rts
 
 ;------------------------------------------------------------------------------
-; HomeScoreWithLogo_Standalone
+; HomeScoreWithLogo_Refactored
 ;------------------------------------------------------------------------------
-HomeScoreWithLogo_Standalone:
+HomeScoreWithLogo_Refactored:
 	move.b	(HomeScorePosX).l,d0	; Read home score X from ROM
 	ext.w	d0
 	move.w	d0,(printx).w
@@ -291,15 +214,15 @@ HomeScoreWithLogo_Standalone:
 	
 	move.w	#LogoTileBase,d3
 	or.w	#$A000,d3
-	bsr.w	DoSmallLogo_Standalone
+	bsr.w	DoSmallLogo_Refactored
 	movea.w	#$C6CE,a2
 	bsr.w	PrintScoreOnly
 	rts
 
 ;------------------------------------------------------------------------------
-; VisitorScoreWithLogo_Standalone
+; VisitorScoreWithLogo_Refactored
 ;------------------------------------------------------------------------------
-VisitorScoreWithLogo_Standalone:
+VisitorScoreWithLogo_Refactored:
 	move.b	(VisScorePosX).l,d0	; Read visitor score X from ROM
 	ext.w	d0
 	move.w	d0,(printx).w
@@ -308,15 +231,15 @@ VisitorScoreWithLogo_Standalone:
 	move.w	#LogoTileBase,d3
 	addq.w	#4,d3
 	or.w	#$A000,d3
-	bsr.w	DoSmallLogo_Standalone
+	bsr.w	DoSmallLogo_Refactored
 	adda.w	#$364,a2
 	bsr.w	PrintScoreOnly
 	rts
 
 ;------------------------------------------------------------------------------
-; PowerPlayLogo_Wrapper_Standalone
+; PowerPlayLogo_Wrapper_Refactored
 ;------------------------------------------------------------------------------
-PowerPlayLogo_Wrapper_Standalone:
+PowerPlayLogo_Wrapper_Refactored:
 	move.w	#1,(printx).w
 	move.w	#25,(printy).w
 	
@@ -326,23 +249,17 @@ PowerPlayLogo_Wrapper_Standalone:
 	beq.s	.draw
 	addq.w	#4,d3
 .draw:
-	bra.w	DoSmallLogo_Standalone
+	bra.w	DoSmallLogo_Refactored
 
 ;------------------------------------------------------------------------------
-; HighlightLogoReload_Standalone
+; HighlightLogoReload_Refactored
 ; Called during highlight init to reload correct team logos
-; Replaces: clr.w (Vpos).w / clr.w (Hpos).w at $13684
 ;------------------------------------------------------------------------------
-Vpos	equ	$FFFFBD18
-Hpos	equ	$FFFFBD1C
-
-HighlightLogoReload_Standalone:	
-	bsr	ReloadLogos_Standalone
+HighlightLogoReload_Refactored:	
+	bsr	ReloadLogos_Refactored
 	clr.w	(Vpos).w		; Original instruction
 	clr.w	(Hpos).w		; Original instruction
-
-	endif	; UseStandaloneMode
-
+	rts
 
 ;==============================================================================
 ; PLAYOFF BANNER LOGO FIX

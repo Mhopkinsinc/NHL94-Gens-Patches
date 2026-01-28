@@ -17,30 +17,42 @@
 ; MINI LOGO DISPLAY HIJACKS
 ;==============================================================================
 ; Patches the scoreboard and power play logo display routines
-; to show the 2x2 mini team logos.
+; to show the 2x2 mini team logos using Universal routines.
 ;==============================================================================
 
 	if EnableMiniLogos
+
+	;-- Mini Logo Initialization --
+    ; Also DMAs mini logo tiles to VRAM
+	org $16AFA
+		jsr	SetSLogos_Refactored
+		nop
 
 	;-- Home Team Score Display --
 	; Original: Draws score without logo
 	; Patched: Calls our routine with mini logo
 	org $12C90
-		jsr	HomeScoreWithLogo_Banner
+		jsr	HomeScoreWithLogo_Refactored
 		nop
 
 	;-- Visitor Team Score Display --
 	; Original: Draws score without logo
 	; Patched: Calls our routine with mini logo
 	org $12CA2
-		jsr	VisitorScoreWithLogo_Banner
+		jsr	VisitorScoreWithLogo_Refactored
 		nop
 
 	;-- Power Play Logo Display --
 	; Original: Shows text indicator
 	; Patched: Shows mini logo for team on power play
 	org $12B2C
-		jmp	PowerPlayLogo_Wrapper_Banner
+		jmp	PowerPlayLogo_Wrapper_Refactored
+
+	;-- Highlight Replay Logo Reload --
+	; Reloads mini logos when highlight starts (teams may differ)	
+	org $13684
+		jsr	HighlightLogoReload_Refactored
+		nop
 
 	endif	; EnableMiniLogos
 
@@ -169,27 +181,30 @@
 	; Original: Just loads banners
 	; Patched: Also DMAs mini logo tiles to VRAM
 	org $16AFA
-		jsr	SetSLogos_Standalone
+		jsr	SetSLogos_Refactored
 		nop
 
 	;-- Home Team Score Display --
 	org $12C90
-		jsr	HomeScoreWithLogo_Standalone
+		jsr	HomeScoreWithLogo_Refactored
 		nop
 
 	;-- Visitor Team Score Display --
 	org $12CA2
-		jsr	VisitorScoreWithLogo_Standalone
+		jsr	VisitorScoreWithLogo_Refactored
 		nop
 
 	;-- Power Play Logo Display --
 	org $12B2C
-		jmp	PowerPlayLogo_Wrapper_Standalone
+		jmp	PowerPlayLogo_Wrapper_Refactored
 
 	;-- Highlight Replay Logo Reload --
 	; Reloads mini logos when highlight starts (teams may differ)	
 	org $13684
-		jsr	HighlightLogoReload_Standalone
+		jsr	HighlightLogoReload_Refactored
 		nop
 
 	endif	; UseStandaloneMode
+	
+	org $F7927
+		dc.b $04
