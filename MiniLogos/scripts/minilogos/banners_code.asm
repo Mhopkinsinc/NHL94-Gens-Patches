@@ -11,7 +11,7 @@
 ;==============================================================================
 
 ;-- RAM Addresses --
-SmallLogoscset	equ $FFFFDF00		; Storage for mini logo VRAM location
+SmallLogoscset	equ $FFFFDF00	; Storage for mini logo VRAM location
 HomeTeam	equ $FFFFC330		; Current home team number
 VisTeam		equ $FFFFC332		; Current visitor team number
 ExtraChars	equ $FFFFB026		; Extra characters VRAM location
@@ -22,8 +22,8 @@ sflags2		equ $FFFFC2EE		; Game state flags
 disflags	equ $FFFFC302		; Display flags
 potree		equ $FFFFCEF4		; Playoff tree team data (was wrong!)
 potreeteam	equ $FFFFCEEE		; Player's team position in playoff tree
-Vpos		equ	$FFFFBD18
-Hpos		equ	$FFFFBD1C
+Vpos		equ	$FFFFBD18		; Vertical position flag
+Hpos		equ	$FFFFBD1C		; Horizontal position flag
 
 ;-- ROM Addresses (Subroutines) --
 DoDMA		equ $000113E4		; DMA transfer routine
@@ -40,14 +40,6 @@ null			equ $30A		; Null pointer for dobitmap
 ;-- ROM Addresses (Score Positions) --
 HomeScorePosX	equ $012D1F		; Home score X position in ROM
 VisScorePosX	equ $012C9F		; Visitor score X position in ROM
-
-;==============================================================================
-; BANNER MODE - MINI LOGO DISPLAY ROUTINES
-;==============================================================================
-; DEPRECATED: We now use the Universal (Standalone) routines for mini logos.
-;==============================================================================
-
-
 
 ;==============================================================================
 ; BANNER MODE - TEAM SELECT SCREEN ROUTINES
@@ -133,7 +125,7 @@ TeamSelectBannerPalette:
 ; Loads mini logo tiles to end of VRAM during game init
 ;------------------------------------------------------------------------------
 SetSLogos_Refactored:
-	jsr	sub_16D18		; Call original banner loading routine
+	jsr	sub_16D18				; Call original banner loading routine
 	move.w	d4,(ExtraChars).w	; Restore instruction we overwrote
 
 ReloadLogos_Refactored:

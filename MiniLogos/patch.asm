@@ -29,18 +29,17 @@ RemoveChecksum = 1		; Remove Checksum validation (0 = No, 1 = Yes)
 ;
 ; Mode 1: Full Banners - Uses TeamBannersMap with embedded mini logos
 ;         Banners appear on: Team Select, In-Game, Playoffs
-;         Mini logos extracted from banner tiles in VRAM
 ;
 ; Mode 2: Standalone Mini Logos - Uses separate MiniLogosMap
 ;         Original banners unchanged, mini logos DMA'd separately
-;         Use this if you want original banners but custom mini logos
+;         Use this if you want mini logos only
 ;
-; Use32Teams is Experimental and should only be enabled in Mode 2 (No Banners)
+; Use32Teams is Experimental and can only be enabled in Mode 2 (No Banners)
 ;==============================================================================
 
 UseBannerMode = 1			; Mode 1: Full custom banners with embedded mini logos
 UseStandaloneMode = 0		; Mode 2: Standalone mini logos only (no custom banners)
-Use32Teams = 0				; Experimantal: Use 32 teams (1 = Yes, 0 = No - use 28 teams)
+Use32Teams = 0				; Experimantal: Use 32 teams (1 = Yes, 0 = No - use 28 teams) Standalone mode only
 
 ;-- Feature Toggles (only applied when UseBannerMode = 1) --
 EnableTeamSelectBanners = 1	; Show custom banners on Team Select/Game Setup screen
@@ -51,11 +50,6 @@ EnableMiniLogos = 1			; Show mini logos on scoreboard/power play display
 ;==============================================================================
 ; END CONFIGURATION
 ;==============================================================================
-
-;--Patch Equates--
-; NewCodeAddress is set above to the current location counter after the ROM
-; was included. This ensures asm68k will place new code right after the ROM
-; image currently loaded by `incbin`.
 
 ;==============================================================================
 ; PATCH ASSEMBLY
