@@ -186,4 +186,10 @@
 	org $12B2C
 		jmp	PowerPlayLogo_Wrapper_Standalone
 
+	;-- Highlight Replay Logo Reload --
+	; Reloads mini logos when highlight starts (teams may differ)	
+	org $13684
+		jsr	HighlightLogoReload_Standalone
+		nop
+
 	endif	; UseStandaloneMode

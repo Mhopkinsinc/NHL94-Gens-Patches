@@ -212,7 +212,8 @@ TeamSelectBannerPalette:
 SetSLogos_Standalone:
 	jsr	sub_16D18		; Call original banner loading routine
 	move.w	d4,(ExtraChars).w	; Restore instruction we overwrote
-	
+
+ReloadLogos_Standalone:
 	; Load mini logos to end of VRAM
 	move.w	#LogoTileBase,d2
 	move.w	d2,SmallLogoscset
@@ -326,6 +327,19 @@ PowerPlayLogo_Wrapper_Standalone:
 	addq.w	#4,d3
 .draw:
 	bra.w	DoSmallLogo_Standalone
+
+;------------------------------------------------------------------------------
+; HighlightLogoReload_Standalone
+; Called during highlight init to reload correct team logos
+; Replaces: clr.w (Vpos).w / clr.w (Hpos).w at $13684
+;------------------------------------------------------------------------------
+Vpos	equ	$FFFFBD18
+Hpos	equ	$FFFFBD1C
+
+HighlightLogoReload_Standalone:	
+	bsr	ReloadLogos_Standalone
+	clr.w	(Vpos).w		; Original instruction
+	clr.w	(Hpos).w		; Original instruction
 
 	endif	; UseStandaloneMode
 
