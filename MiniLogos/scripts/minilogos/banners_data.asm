@@ -19,9 +19,9 @@
 ;------------------------------------------------------------------------------
 TeamBannersMap:
 	if Use32Teams
-		incbin	scripts\minilogos\TeamBlocks.jim_32teams_banners_94_tilesize_clean_base.jim
+		incbin	scripts\minilogos\banners_32_teams.jim
 	else
-		incbin	scripts\minilogos\TeamBlocks.jim_28teams_banners_94_tilesize_clean_base.jim
+		incbin	scripts\minilogos\banners_28_teams.jim
 	endif
 	
 	endif	; UseBannerMode
@@ -39,7 +39,7 @@ TeamBannersMap:
 ;------------------------------------------------------------------------------
 MiniLogosMap:
 	if Use32Teams
-		incbin	scripts\minilogos\TeamBlocks.jim_32teams_LogoOnly.jim
+		incbin	scripts\minilogos\minilogos_32_teams.jim
 	else
-		incbin	scripts\minilogos\TeamBlocks.jim_28teams_LogoOnly.jim
+		incbin	scripts\minilogos\minilogos_28_teams.jim
 	endif
