@@ -1,3 +1,6 @@
+# ARCHIVED
+This repository is no longer maintained. Development has moved to NHL94GENS, which is now the unified base for our NHL 9x decompilation projects. We’ve brought our resources together there so the work can continue in one place.
+
 # GENS NHL 94 Patches
 
 ## Overview
